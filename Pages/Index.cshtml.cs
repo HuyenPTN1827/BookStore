@@ -18,7 +18,7 @@ namespace BookStore.Pages
 		public List<SubCategory> SubCategories { get; set; }
 		public List<Book> Books { get; set; }
 		public List<Author> Authors { get; set; }
-		public List<BooksAuthor> BooksAuthors { get; set; } = null;
+		public List<BooksAuthor> BooksAuthors { get; set; } 
 		public string Keywords { get; set; }
 
 		public void OnGet(string keyword)
