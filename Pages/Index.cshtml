@@ -1,0 +1,101 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+@using BookStore.Models
+
+@* Search *@
+<form asp-action="./Index" method="get">
+	<div class="input-group justify-content-center mb-3">
+		<div class="form-outline " data-mdb-input-init>
+			<input type="search" class="form-control" style="min-width:800px"
+				   placeholder="Nhập Vào Từ Tìm Kiếm" name="keyword" value="@Model.Keywords" />
+		</div>
+		<button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>Tìm Kiếm</button>
+	</div>
+</form>
+
+@* Menu *@
+<nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-light border-bottom box-shadow mb-3">
+	@* <div> *@
+	<ul class="navbar-nav">
+		<li style="display:block; text-align:center; padding:0px 5px; text-decoration:none; border-right:1px solid #ddd;">
+			<a class="nav-link" asp-area="" asp-page="/Index"> Trang Chủ</a>
+		</li>
+		@foreach (Category category in Model.Categories)
+		{
+			<li class="nav-item dropdown" style="display:block; text-align:center; padding:0px 5px; text-decoration:none; border-right:1px solid #ddd;">
+				<a class="nav-link dropdown-toggle" asp-area="" asp-page="/Index" id="navbarDropdown"
+				   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					@category.CategoryName
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					@foreach (SubCategory subCategory in category.SubCategories)
+					{
+						<li><a class="dropdown-item" asp-area="" asp-page="/Index">@subCategory.SubCategoryName</a></li>
+					}
+				</ul>
+			</li>
+		}
+		<li style="display:block; text-align:center; padding:0px 5px; text-decoration:none;">
+			<a class="nav-link" asp-area="" asp-page="/Index"> Liên Hệ</a>
+		</li>
+	</ul>
+	@* </div> *@
+</nav>
+
+@* Books *@
+<div class="container" style="display:flex; flex-wrap:wrap;">
+	@* @if (Model.BooksAuthors == null)
+	{
+	@foreach (Book book in Model.Books)
+	{
+	<div class="card" style="text-align:center; width:17rem; margin:25px">
+	<a href="@Url.Action("BookDetail","Book",new { id = book.BookId })">
+	<img src="~/Images/@book.Cover" alt="book-cover" class="card-img-top" />
+	</a>
+	<div class="card-body">
+	<div style="color:#000; font-weight:bold; font-size:15px">
+	@book.BookName
+	</div>
+	<div style="color:red; font-size:15px">
+	Giá: @book.Price VND
+	</div>
+	@using (Html.BeginForm("AddCart", "Cart", new { id = book.BookId }))
+	{
+	<button type="submit" class="btn btn-outline-danger" style="margin-top:1%">
+	Mua Hàng
+	</button>
+	}
+	</div>
+	</div>
+	}
+	}
+	@if (Model.BooksAuthors != null)
+	{ *@
+	@foreach (BooksAuthor book in Model.BooksAuthors)
+	{
+		<div class="card" style="text-align:center; width:17rem; margin:25px">
+			<a href="@Url.Action("BookDetail","Book",new { id = book.BookId })">
+				<img src="~/Images/@book.Book.Cover" alt="book-cover" class="card-img-top" />
+			</a>
+			<div class="card-body">
+				<div style="color:#000; font-weight:bold; font-size:15px">
+					@book.Book.BookName
+				</div>
+				<div style="color:red; font-size:15px">
+					Giá: @book.Book.Price VND
+				</div>
+				@using (Html.BeginForm("AddCart", "Cart", new { id = book.BookId }))
+				{
+					<button type="submit" class="btn btn-outline-danger" style="margin-top:1%">
+						Mua Hàng
+					</button>
+				}
+			</div>
+		</div>
+	}
+@* 	} *@
+
+</div>
