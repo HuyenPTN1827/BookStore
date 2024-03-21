@@ -42,9 +42,9 @@ namespace BookStore.Pages
 				BooksAuthors = context.BooksAuthors
 					.Include(x => x.Book)
 					.Include(x => x.Author)
-					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword))
+					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword)) 
 					|| (x.Position.Equals("Author") && x.Author.AuthorName.Contains(keyword))
-					|| (x.Position.Equals("Author") && x.Book.SubCategoryId == Int32.Parse(SubCategoryId)))
+					|| (x.Position.Equals("Author") && x.Book.SubCategoryId == Convert.ToInt32(subCategoryId)))
 					.ToList();
 			}
 

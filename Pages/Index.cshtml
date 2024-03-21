@@ -21,13 +21,12 @@
 	@* <div> *@
 	<ul class="navbar-nav">
 		<li style="display:block; text-align:center; padding:0px 5px; text-decoration:none; border-right:1px solid #ddd;">
-			<a class="nav-link" asp-area="" asp-page="/Index"> Trang Chủ</a>
+			<a class="nav-link" asp-page="/Index"> Trang Chủ</a>
 		</li>
 		@foreach (Category category in Model.Categories)
 		{
 			<li class="nav-item dropdown" style="display:block; text-align:center; padding:0px 5px; text-decoration:none; border-right:1px solid #ddd;">
-				<a class="nav-link dropdown-toggle" 
-				   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					@category.CategoryName
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,7 +39,7 @@
 			</li>
 		}
 		<li style="display:block; text-align:center; padding:0px 5px; text-decoration:none;">
-			<a class="nav-link" asp-area="" asp-page="/Index"> Liên Hệ</a>
+			<a class="nav-link" asp-page="/Contact"> Liên Hệ</a>
 		</li>
 	</ul>
 	@* </div> *@
