@@ -26,14 +26,15 @@
 		@foreach (Category category in Model.Categories)
 		{
 			<li class="nav-item dropdown" style="display:block; text-align:center; padding:0px 5px; text-decoration:none; border-right:1px solid #ddd;">
-				<a class="nav-link dropdown-toggle" asp-area="" asp-page="/Index" id="navbarDropdown"
+				<a class="nav-link dropdown-toggle" 
 				   role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					@category.CategoryName
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					@foreach (SubCategory subCategory in category.SubCategories)
 					{
-						<li><a class="dropdown-item" asp-area="" asp-page="/Index">@subCategory.SubCategoryName</a></li>
+						<li><a class="dropdown-item" href="/?subCategoryId=@subCategory.SubCategoryId">
+							@subCategory.SubCategoryName</a></li>
 					}
 				</ul>
 			</li>

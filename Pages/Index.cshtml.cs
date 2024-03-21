@@ -18,16 +18,19 @@ namespace BookStore.Pages
 		public List<SubCategory> SubCategories { get; set; }
 		public List<Book> Books { get; set; }
 		public List<Author> Authors { get; set; }
-		public List<BooksAuthor> BooksAuthors { get; set; } 
+		public List<BooksAuthor> BooksAuthors { get; set; }
 		public string Keywords { get; set; }
+		public string SubCategoryId { get; set; }
 
-		public void OnGet(string keyword)
+		public void OnGet(string keyword, string subCategoryId)
 		{
 			Keywords = keyword;
+			SubCategoryId = subCategoryId;
+
 			Categories = context.Categories.ToList();
 			SubCategories = context.SubCategories.ToList();
 
-			if (string.IsNullOrEmpty(keyword))
+			if (string.IsNullOrEmpty(keyword) && string.IsNullOrEmpty(subCategoryId))
 			{
 				BooksAuthors = context.BooksAuthors
 					.Include(x => x.Book)
@@ -39,10 +42,13 @@ namespace BookStore.Pages
 				BooksAuthors = context.BooksAuthors
 					.Include(x => x.Book)
 					.Include(x => x.Author)
-					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword)) 
-					|| (x.Position.Equals("Author") && x.Author.AuthorName.Contains(keyword)))
+					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword))
+					|| (x.Position.Equals("Author") && x.Author.AuthorName.Contains(keyword))
+					|| (x.Position.Equals("Author") && x.Book.SubCategoryId == Int32.Parse(SubCategoryId)))
 					.ToList();
 			}
+
+
 		}
 	}
 }
