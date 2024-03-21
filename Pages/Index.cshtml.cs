@@ -47,8 +47,6 @@ namespace BookStore.Pages
 					|| (x.Position.Equals("Author") && x.Book.SubCategoryId == Convert.ToInt32(subCategoryId)))
 					.ToList();
 			}
-
-
 		}
 	}
 }

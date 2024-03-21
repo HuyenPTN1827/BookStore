@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<BookStoreContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("MyConStr")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
 builder.Services.AddScoped<BookStoreContext>();
 
 var app = builder.Build();
