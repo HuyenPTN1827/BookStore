@@ -32,9 +32,9 @@
 				<th>ID</th>
 				<th>Bìa Sách</th>
 				<th>Tên Sách</th>
-				<th>Danh Mục</th>
 				<th>Tác Giả</th>
 				<th>Nhà Xuất Bản</th>
+				<th>Danh Mục</th>
 				<th>Giá</th>
 				<th></th>
 			</tr>
@@ -53,13 +53,13 @@
 						@book.Book.BookName
 					</td>
 					<td>
-						@book.Book.SubCategory.SubCategoryName
-					</td>
-					<td>
 						@book.Author.AuthorName
 					</td>
 					<td>
 						@book.Book.Publisher.PublisherName
+					</td>
+					<td>
+						@book.Book.SubCategory.SubCategoryName
 					</td>
 					<td>
 						@book.Book.Price VND

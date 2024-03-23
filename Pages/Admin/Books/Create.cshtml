@@ -2,41 +2,112 @@
 @model BookStore.Pages.Admin.Books.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
+	Layout = "~/Pages/Shared/_Admin.cshtml";
 }
+@using BookStore.Models
 
-<h1>Create</h1>
-
-<h4>BooksAuthor</h4>
+<h1 style="text-align:center">Thêm Sách Mới</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="BooksAuthor.BookId" class="control-label"></label>
-                <select asp-for="BooksAuthor.BookId" class ="form-control" asp-items="ViewBag.BookId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BooksAuthor.AuthorId" class="control-label"></label>
-                <select asp-for="BooksAuthor.AuthorId" class ="form-control" asp-items="ViewBag.AuthorId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BooksAuthor.Position" class="control-label"></label>
-                <input asp-for="BooksAuthor.Position" class="form-control" />
-                <span asp-validation-for="BooksAuthor.Position" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+<div class="row justify-content-center">
+
+	<form asp-action="/Admin/Books/Create" method="post" enctype="multipart/form-data">
+		<div style="display:flex; justify-content:center; align-items:center;">
+			<div class="col-md-4" style="float:left; margin-right:100px;">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="form-group">
+					<label class="control-label">Tên Sách</label>
+					<input type="text" class="form-control" placeholder="Nhập Tên Sách" name="bookName" required></input>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Ảnh Bìa</label>
+					<input type="file" class="form-control" name="cover"></input>
+					<span asp-validation-formaction="Book.Cover"></span>
+					@* <button class="btn btn-primary" asp-page="UploadMulti">Chọn Ảnh</button> *@
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Vai Trò Của Tác Giả</label>
+					<select class="form-control" name="position" required>
+						<option disabled selected hidden value="">- Chọn Vai Trò -</option>
+						<option value="Writer">Writer</option>
+						<option value="Writer">Illustrator</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Tác Giả</label>
+					<input type="text" class="form-control" placeholder="Nhập Tên Tác Giả" name="author" required></input>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Giá Bán</label>
+					<input type="text" class="form-control" placeholder="Nhập Giá Sách" name="price" required></input>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Số Lượng (1 - 100):</label>
+					<input type="number" class="form-control" value="1"
+						   name="quantity" min="1" max="100" required>
+				</div>
+			</div>
+
+			<div class="col-md-4" style="float:right;">
+				<div class="form-group">
+					<label class="control-label">Nhà Xuất Bản</label>
+					<select class="form-control" name="publisher">
+						<option disabled selected hidden>- Chọn Nhà Xuất Bản -</option>
+						@foreach (Publisher publisher in Model.Publishers)
+						{
+							<option value="@publisher.PushlisherId">@publisher.PublisherName</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Danh Mục</label>
+					<select class="form-control" name="category" required>
+						<option disabled selected hidden value="">- Chọn Danh Mục -</option>
+						@foreach (Category category in Model.Categories)
+						{
+							<option value="@category.CategoryId">@category.CategoryName</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Danh Mục Con</label>
+					<select class="form-control" name="subCategory" required>
+						<option disabled selected hidden value="">- Chọn Danh Mục Con -</option>
+						@foreach (SubCategory subCategory in Model.SubCategories)
+						{
+							<option value="@subCategory.SubCategoryId">@subCategory.SubCategoryName</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Mô Tả</label>
+					<textarea type="string" length="20000" class="form-control"
+							  placeholder="Nhập Mô Tả" name="description" style="height:165px;"></textarea>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="form-group justify-content-center" style="display:flex; align-items:center;">
+			<a class="btn btn-outline-secondary" asp-page="Index">< Quay lại</a>&nbsp;
+			@* <input type="reset" value="Reset" class="btn btn-outline-info" />&nbsp; *@
+			<input type="submit" value="Thêm Sách" class="btn btn-outline-success" />
+		</div>
+	</form>
+
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

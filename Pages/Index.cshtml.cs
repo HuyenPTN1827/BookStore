@@ -34,7 +34,8 @@ namespace BookStore.Pages
 			{
 				BooksAuthors = context.BooksAuthors
 					.Include(x => x.Book)
-					.Where(x => x.Position.Equals("Author"))
+					.Where(x => x.Position.Equals("Writer"))
+					.OrderByDescending(x => x.BookId)
 					.ToList();
 			}
 			else
@@ -42,10 +43,11 @@ namespace BookStore.Pages
 				BooksAuthors = context.BooksAuthors
 					.Include(x => x.Book)
 					.Include(x => x.Author)
-					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword))
-					|| (x.Position.Equals("Author") && x.Author.AuthorName.Contains(keyword))
-					|| (x.Position.Equals("Author") && x.Book.SubCategoryId == Convert.ToInt32(subCategoryId)))
-					.ToList();
+					.Where(x => (x.Position.Equals("Writer") && x.Book.BookName.Contains(keyword))
+					|| (x.Position.Equals("Writer") && x.Author.AuthorName.Contains(keyword))
+					|| (x.Position.Equals("Writer") && x.Book.SubCategoryId == Convert.ToInt32(subCategoryId)))
+                    .OrderByDescending(x => x.BookId)
+                    .ToList();
 			}
 		}
 	}

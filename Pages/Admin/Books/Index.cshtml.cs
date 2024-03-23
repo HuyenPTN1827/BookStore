@@ -35,8 +35,9 @@ namespace BookStore.Pages.Admin.Books
 					.Include(x => x.Book)
 					.Include(x => x.Author)
 					.Include(x => x.Book.Publisher)
-					.Where(x => x.Position.Equals("Author"))
-					.ToList();
+					.Where(x => x.Position.Equals("Writer"))
+                    .OrderByDescending(x => x.BookId)
+                    .ToList();
 			}
 			else
 			{
@@ -44,8 +45,9 @@ namespace BookStore.Pages.Admin.Books
 					.Include(x => x.Book)
 					.Include(x => x.Author)
 					.Include(x => x.Book.Publisher)
-					.Where(x => (x.Position.Equals("Author") && x.Book.BookName.Contains(keyword)))
-					.ToList();
+					.Where(x => x.Position.Equals("Author") && x.Book.BookName.Contains(keyword))
+                    .OrderByDescending(x => x.BookId)
+                    .ToList();
 			}
 		}
 	}
