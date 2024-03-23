@@ -11,9 +11,9 @@
 <h1 style="text-align:center">Quản Lý Sách</h1>
 
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2%">
-	<p>
+	<div>
 		<a class="btn btn-outline-success" asp-page="Create">Thêm Sách Mới</a>
-	</p>
+	</div>
 	<form asp-action="/Admin/Books" method="get">
 		<div class="input-group justify-content-end" style="margin-left:auto">
 			<div class="form-outline " data-mdb-input-init>
@@ -28,7 +28,7 @@
 {
 	<table class="table">
 		<thead>
-			<tr>
+			<tr style="text-align:center">
 				<th>ID</th>
 				<th>Bìa Sách</th>
 				<th>Tên Sách</th>
@@ -42,12 +42,12 @@
 		<tbody>
 			@foreach (BooksAuthor book in Model.BooksAuthors)
 			{
-				<tr>
+				<tr style="vertical-align:middle; text-align:center">
 					<td>
 						@book.Book.BookId
 					</td>
 					<td>
-						<img src="~/Images/@book.Book.Cover" style="width:50px; height:50px;" />
+						<img src="~/Images/@book.Book.Cover" style="width:100px; height:100px; display:block; margin:auto;" />
 					</td>
 					<td>
 						@book.Book.BookName
@@ -65,9 +65,11 @@
 						@book.Book.Price VND
 					</td>
 					<td>
-						@Html.ActionLink("Xem", "Details", new { id = book.BookId }) |
-						@Html.ActionLink("Sửa", "Edit", new { id = book.BookId }) |
-						@Html.ActionLink("Xoá", "Delete", new { id = book.BookId })
+						<a class="btn btn-outline-primary" asp-page="/Admin/Books/Details" asp-route-id="@book.BookId">Xem</a>
+						&nbsp;
+						<a class="btn btn-outline-success" asp-page="/Admin/Books/Edit" asp-route-id="@book.BookId">Sửa</a>
+						&nbsp;
+						<a class="btn btn-outline-danger" asp-page="/Admin/Books/Delete" asp-route-id="@book.BookId">Xoá</a>
 					</td>
 				</tr>
 			}

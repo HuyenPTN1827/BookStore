@@ -9,34 +9,46 @@ using BookStore.Models;
 
 namespace BookStore.Pages.Admin.Books
 {
-    public class DetailsModel : PageModel
-    {
-        private readonly BookStore.Models.BookStoreContext _context;
+	public class DetailsModel : PageModel
+	{
+		private readonly BookStoreContext context;
 
-        public DetailsModel(BookStore.Models.BookStoreContext context)
-        {
-            _context = context;
-        }
+		public DetailsModel()
+		{
+			context = new BookStoreContext();
+		}
 
-      public BooksAuthor BooksAuthor { get; set; } = default!; 
+		public List<Category> Categories { get; set; }
+		public List<SubCategory> SubCategories { get; set; }
+		public List<Book> Books { get; set; }
+		public List<Author> Authors { get; set; }
+		public BooksAuthor Books_Authors { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null || _context.BooksAuthors == null)
-            {
-                return NotFound();
-            }
+		public async Task<IActionResult> OnGetAsync(string? id)
+		{
+			Categories = context.Categories.ToList();
+			SubCategories = context.SubCategories.ToList();
 
-            var booksauthor = await _context.BooksAuthors.FirstOrDefaultAsync(m => m.BookId == id);
-            if (booksauthor == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                BooksAuthor = booksauthor;
-            }
-            return Page();
-        }
-    }
+			if (id == null || context.BooksAuthors == null)
+			{
+				return NotFound();
+			}
+
+			var book = await context.BooksAuthors
+				.Include(x => x.Book)
+				.Include(x => x.Author)
+				.Include(x => x.Book.Publisher)
+				.FirstOrDefaultAsync(x => x.BookId == Convert.ToInt32(id));
+
+			if (book == null)
+			{
+				return NotFound();
+			}
+			else
+			{
+				Books_Authors = book;
+			}
+			return Page();
+		}
+	}
 }
