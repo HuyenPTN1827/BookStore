@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - BookStore</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/BookStore.styles.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		@* Navigation Bar*@
+		<nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
+			<div class="container">
+				<a class="navbar-brand fs-1" asp-area="" asp-page="/Admin">Book Store</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="navbar-collapse collapse d-lg-inline-flex justify-content-end">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link text-light" asp-area="" asp-page="/Login">Đăng Nhập</a>
+						</li>
+						@* <li class="nav-item">
+						<a class="nav-link text-light" asp-area="" asp-page="/Signin">Đăng Ký</a>
+						</li> *@
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container-fluid">
+		<main role="main" class="pb-3">
+			@* Menu *@
+			<nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-light border-bottom box-shadow mb-3 justify-content-center">
+				<ul class="navbar-nav">
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" asp-page="/Admin/Index"> Trang Chủ </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" asp-page="~/Admin/Accounts"> Tài Khoản </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" asp-page="~/Admin/Categories"> Danh Mục </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" asp-page="~/Admin/SubCategories"> Danh Mục Con </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" href="/Admin/Books"> Sách </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none; border-right:1px solid #ddd;">
+						<a class="nav-link" asp-page="~/Admin/Authors"> Tác Giả </a>
+					</li>
+					<li style="display:block; text-align:center; width:150px; text-decoration:none;">
+						<a class="nav-link" asp-page="~/Admin/Publishers"> Nhà Xuất Bản</a>
+					</li>
+				</ul>
+			</nav>
+
+			@* Slider *@
+			@* 			<section style="height:500px">
+			<div class="slider" style="height:400px">
+			<div id="slider" class="nivoSlider">
+			<img src="../Images/slider-1.jpg" data-thumb="Images/slider-1.jpg" alt="" data-transition="slideInLeft" />
+			<img src="../Images/slider-2.jpg" data-thumb="Images/slider-2.jpg" alt="" title="" />
+			<img src="../Images/slider-3.jpg" data-thumb="Images/slider-3.jpg" alt="" data-transition="slideInLeft" />
+			<img src="../Images/slider-4.jpg" data-thumb="Images/slider-4.jpg" alt="" title="" />
+			<img src="../Images/slider-5.jpg" data-thumb="Images/slider-5.jpg" alt="" data-transition="slideInLeft" title="" />
+			</div>
+			</div>
+			</section> *@
+			<div class="container">
+				@RenderBody()
+			</div>
+		</main>
+	</div>
+
+	<footer class="border-top footer text-muted bg-light"
+			style="position: absolute; bottom: 0; width: 100%; white-space: nowrap; line-height: 60px;">
+		<div class="container">
+			&copy; 2024 - Book Store - HuyenPTNHE160769 - <a asp-area="" asp-page="/Contact">Contact</a>
+		</div>
+	</footer>
+
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(window).load(function () {
+			$('#slider').nivoSlider({
+			});
+		});
+	</script>
+
+				@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

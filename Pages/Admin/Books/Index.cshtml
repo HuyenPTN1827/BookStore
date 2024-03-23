@@ -1,0 +1,82 @@
+﻿@page "/Admin/Books"
+@model BookStore.Pages.Admin.Books.IndexModel
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Pages/Shared/_Admin.cshtml";
+
+}
+@using BookStore.Models
+
+<h1 style="text-align:center">Quản Lý Sách</h1>
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2%">
+	<p>
+		<a class="btn btn-outline-success" asp-page="Create">Thêm Sách Mới</a>
+	</p>
+	<form asp-action="/Admin/Books" method="get">
+		<div class="input-group justify-content-end" style="margin-left:auto">
+			<div class="form-outline " data-mdb-input-init>
+				<input type="search" class="form-control" placeholder="Nhập Vào Từ Tìm Kiếm" name="keyword" value="@Model.Keywords" />
+			</div>
+			<button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>Tìm Kiếm</button>
+		</div>
+	</form>
+</div>
+
+@if (Model.BooksAuthors.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Bìa Sách</th>
+				<th>Tên Sách</th>
+				<th>Danh Mục</th>
+				<th>Tác Giả</th>
+				<th>Nhà Xuất Bản</th>
+				<th>Giá</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (BooksAuthor book in Model.BooksAuthors)
+			{
+				<tr>
+					<td>
+						@book.Book.BookId
+					</td>
+					<td>
+						<img src="~/Images/@book.Book.Cover" style="width:50px; height:50px;" />
+					</td>
+					<td>
+						@book.Book.BookName
+					</td>
+					<td>
+						@book.Book.SubCategory.SubCategoryName
+					</td>
+					<td>
+						@book.Author.AuthorName
+					</td>
+					<td>
+						@book.Book.Publisher.PublisherName
+					</td>
+					<td>
+						@book.Book.Price VND
+					</td>
+					<td>
+						@Html.ActionLink("Xem", "Details", new { id = book.BookId }) |
+						@Html.ActionLink("Sửa", "Edit", new { id = book.BookId }) |
+						@Html.ActionLink("Xoá", "Delete", new { id = book.BookId })
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<div class="text-black-50" style="font-weight:bold; font-size:20px; text-align:center">
+		<p>Không tìm thấy kết quả!</p>
+	</div>
+}

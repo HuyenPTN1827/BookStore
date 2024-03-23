@@ -20,4 +20,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\Accounts\" />
+    <Folder Include="Pages\Admin\Authors\" />
+    <Folder Include="Pages\Admin\Categories\" />
+    <Folder Include="Pages\Admin\SubCategories\" />
+    <Folder Include="Pages\Admin\Publishers\" />
+  </ItemGroup>
+
 </Project>
