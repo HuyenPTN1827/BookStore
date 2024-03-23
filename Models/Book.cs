@@ -18,10 +18,10 @@ namespace BookStore.Models
         public string? Cover { get; set; }
         public int Quantity { get; set; }
         public DateTime UpdateDate { get; set; }
-        public int? PublisherId { get; set; }
+        public int PublisherId { get; set; }
         public int SubCategoryId { get; set; }
 
-        public virtual Publisher? Publisher { get; set; }
+        public virtual Publisher Publisher { get; set; }
         public virtual SubCategory SubCategory { get; set; }
         public virtual ICollection<BooksAuthor> BooksAuthors { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
