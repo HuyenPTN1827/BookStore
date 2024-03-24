@@ -19,40 +19,40 @@ namespace BookStore.Pages.Admin.Books
         }
 
         [BindProperty]
-      public BooksAuthor BooksAuthor { get; set; } = default!;
+      public Book Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.BooksAuthors == null)
+            if (id == null || _context.Books == null)
             {
                 return NotFound();
             }
 
-            var booksauthor = await _context.BooksAuthors.FirstOrDefaultAsync(m => m.BookId == id);
+            var book = await _context.Books.FirstOrDefaultAsync(m => m.BookId == id);
 
-            if (booksauthor == null)
+            if (book == null)
             {
                 return NotFound();
             }
             else 
             {
-                BooksAuthor = booksauthor;
+                Book = book;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.BooksAuthors == null)
+            if (id == null || _context.Books == null)
             {
                 return NotFound();
             }
-            var booksauthor = await _context.BooksAuthors.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
 
-            if (booksauthor != null)
+            if (book != null)
             {
-                BooksAuthor = booksauthor;
-                _context.BooksAuthors.Remove(BooksAuthor);
+                Book = book;
+                _context.Books.Remove(Book);
                 await _context.SaveChangesAsync();
             }
 

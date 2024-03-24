@@ -20,23 +20,23 @@ namespace BookStore.Pages.Admin.Books
         }
 
         [BindProperty]
-        public BooksAuthor BooksAuthor { get; set; } = default!;
+        public Book Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.BooksAuthors == null)
+            if (id == null || _context.Books == null)
             {
                 return NotFound();
             }
 
-            var booksauthor =  await _context.BooksAuthors.FirstOrDefaultAsync(m => m.BookId == id);
-            if (booksauthor == null)
+            var book =  await _context.Books.FirstOrDefaultAsync(m => m.BookId == id);
+            if (book == null)
             {
                 return NotFound();
             }
-            BooksAuthor = booksauthor;
-           ViewData["AuthorId"] = new SelectList(_context.Authors, "AuthorId", "AuthorId");
-           ViewData["BookId"] = new SelectList(_context.Books, "BookId", "BookId");
+            Book = book;
+           ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PublisherName");
+           ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryName");
             return Page();
         }
 
@@ -49,7 +49,7 @@ namespace BookStore.Pages.Admin.Books
                 return Page();
             }
 
-            _context.Attach(BooksAuthor).State = EntityState.Modified;
+            _context.Attach(Book).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace BookStore.Pages.Admin.Books
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BooksAuthorExists(BooksAuthor.BookId))
+                if (!BookExists(Book.BookId))
                 {
                     return NotFound();
                 }
@@ -70,9 +70,9 @@ namespace BookStore.Pages.Admin.Books
             return RedirectToPage("./Index");
         }
 
-        private bool BooksAuthorExists(int id)
+        private bool BookExists(int id)
         {
-          return (_context.BooksAuthors?.Any(e => e.BookId == id)).GetValueOrDefault();
+          return (_context.Books?.Any(e => e.BookId == id)).GetValueOrDefault();
         }
     }
 }
