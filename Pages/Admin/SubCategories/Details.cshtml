@@ -6,27 +6,26 @@
     Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Details</h1>
+<h1 style="text-align:center">Thông Tin Danh Mục Con</h1>
 
 <div>
-    <h4>SubCategory</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SubCategory.SubCategoryName)
+            Tên Danh Mục Con
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SubCategory.SubCategoryName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SubCategory.Category)
+            Danh Mục
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SubCategory.Category.CategoryId)
+            @Html.DisplayFor(model => model.SubCategory.Category.CategoryName)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.SubCategory?.SubCategoryId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+<div class="form-group justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+    <a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+    <a class="btn btn-outline-success" asp-page="./Edit" asp-route-id="@Model.SubCategory?.SubCategoryId">Sửa</a>
 </div>

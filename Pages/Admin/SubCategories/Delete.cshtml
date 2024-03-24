@@ -6,30 +6,29 @@
     Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3 style="text-align:center">Are you sure you want to delete this subcategory?</h3>
 <div>
-    <h4>SubCategory</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SubCategory.SubCategoryName)
+            Tên Danh Mục Con
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SubCategory.SubCategoryName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SubCategory.Category)
+            Danh Mục
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SubCategory.Category.CategoryId)
+            @Html.DisplayFor(model => model.SubCategory.Category.CategoryName)
         </dd>
     </dl>
     
     <form method="post">
         <input type="hidden" asp-for="SubCategory.SubCategoryId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <div class="justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+            <a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+            <input type="submit" value="Xoá" class="btn btn-danger" />
+        </div>
     </form>
 </div>

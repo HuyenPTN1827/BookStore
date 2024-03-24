@@ -27,7 +27,9 @@ namespace BookStore.Pages.Admin.SubCategories
                 return NotFound();
             }
 
-            var subcategory = await _context.SubCategories.FirstOrDefaultAsync(m => m.SubCategoryId == id);
+            var subcategory = await _context.SubCategories
+                .Include(m => m.Category)
+                .FirstOrDefaultAsync(m => m.SubCategoryId == id);
             if (subcategory == null)
             {
                 return NotFound();

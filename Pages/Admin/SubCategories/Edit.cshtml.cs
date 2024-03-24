@@ -35,7 +35,7 @@ namespace BookStore.Pages.Admin.SubCategories
                 return NotFound();
             }
             SubCategory = subcategory;
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
+           ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
             return Page();
         }
 
