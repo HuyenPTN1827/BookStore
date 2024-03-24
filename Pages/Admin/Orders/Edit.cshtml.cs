@@ -20,7 +20,8 @@ namespace BookStore.Pages.Admin.Orders
         }
 
         [BindProperty]
-        public Order Order { get; set; } = default!;
+        public OrderDetail OrderDetail { get; set; } = default!;
+        public Order Order { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,13 +30,17 @@ namespace BookStore.Pages.Admin.Orders
                 return NotFound();
             }
 
-            var order =  await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
+            var orderDetail = await _context.OrderDetails
+                .Include(m => m.Order)
+                .Include(m => m.Book)
+                .Include(m => m.Order.Account)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (orderDetail == null)
             {
                 return NotFound();
             }
-            Order = order;
-           ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
+            OrderDetail = orderDetail;
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "Username");
             return Page();
         }
 
@@ -43,12 +48,13 @@ namespace BookStore.Pages.Admin.Orders
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Attach(Order).State = EntityState.Modified;
+            _context.Attach(OrderDetail).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +62,7 @@ namespace BookStore.Pages.Admin.Orders
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(Order.OrderId))
+                if (!OrderExists(OrderDetail.OrderId))
                 {
                     return NotFound();
                 }
@@ -71,7 +77,7 @@ namespace BookStore.Pages.Admin.Orders
 
         private bool OrderExists(int id)
         {
-          return (_context.Orders?.Any(e => e.OrderId == id)).GetValueOrDefault();
+            return (_context.Orders?.Any(e => e.OrderId == id)).GetValueOrDefault();
         }
     }
 }

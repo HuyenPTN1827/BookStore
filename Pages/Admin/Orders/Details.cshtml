@@ -6,39 +6,56 @@
     Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Details</h1>
+<h1 style="text-align:center">Thông Tin Đơn Hàng</h1>
 
 <div>
-    <h4>Order</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.Status)
+            Sản Phẩm
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.Status)
+            @Html.DisplayFor(model => model.OrderDetail.Book.BookName)&ensp; x &ensp;@Html.DisplayFor(model => model.OrderDetail.Quantity)
+        </dd>
+        @* <dt class="col-sm-2">
+            Số Lượng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderDetail.Quantity)
+        </dd> *@
+        <dt class="col-sm-2">
+            Đơn Giá
+        </dt>
+        <dd class="col-sm-10">
+            @string.Format("{0:0,0}",Model.OrderDetail.UnitPrice) VND
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.OrderDate)
+            Trạng Thái
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.OrderDate)
+            @Html.DisplayFor(model => model.OrderDetail.Order.Status)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.DeliveryDate)
+            Ngày Đặt Hàng
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.DeliveryDate)
+            @Html.DisplayFor(model => model.OrderDetail.Order.OrderDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.Account)
+            Ngày Giao Hàng
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.Account.AccountId)
+            @Html.DisplayFor(model => model.OrderDetail.Order.DeliveryDate)
+        </dd>
+        <dt class="col-sm-2">
+            Khách Hàng
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderDetail.Order.Account.Username)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Order?.OrderId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+<div class="form-group justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+    <a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+    <a class="btn btn-outline-success" @* asp-page="./Edit" *@ asp-route-id="@Model.OrderDetail.?.OrderId">Sửa</a>
 </div>

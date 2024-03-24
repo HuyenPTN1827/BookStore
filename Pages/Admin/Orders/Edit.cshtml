@@ -6,44 +6,65 @@
     Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Order</h4>
+<h1 style="text-align:center">Sửa Thông Tin Đơn Hàng</h1>
 <hr />
-<div class="row">
+<div class="row justify-content-center" style="display:flex; align-items:center;">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Order.OrderId" />
+            <input type="hidden" asp-for="OrderDetail.OrderId" />
             <div class="form-group">
-                <label asp-for="Order.Status" class="control-label"></label>
-                <input asp-for="Order.Status" class="form-control" />
+                <label class="control-label">Sách</label>
+                <input asp-for="OrderDetail.Book.BookName" class="form-control" disabled/>
+                <span asp-validation-for="OrderDetail.Book.BookName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Số Lượng</label>
+                <input asp-for="OrderDetail.Quantity" class="form-control" disabled />
+                <span asp-validation-for="OrderDetail.Quantity" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Đơn Giá</label>
+                <input asp-for="OrderDetail.UnitPrice" class="form-control" disabled />
+                <span asp-validation-for="OrderDetail.UnitPrice" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Trạng Thái</label>
+                <select asp-for="Order.Status" class="form-control" >
+                    <option value="Xác nhận đơn hàng" selected="@(Model.OrderDetail.Order.Status == "Xác nhận đơn hàng")">Xác nhận đơn hàng</option>
+                    <option value="Đang giao hàng" selected="@(Model.OrderDetail.Order.Status == "Đang giao hàng")">Đang giao hàng</option>
+                    <option value="Hoàn thành" selected="@(Model.OrderDetail.Order.Status == "Hoàn thành")">Hoàn thành</option>
+                </select>
                 <span asp-validation-for="Order.Status" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Order.OrderDate" class="control-label"></label>
-                <input asp-for="Order.OrderDate" class="form-control" />
+                <label class="control-label">Ngày Đặt Hàng</label>
+                <input asp-for="Order.OrderDate" class="form-control" disabled />
                 <span asp-validation-for="Order.OrderDate" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Order.DeliveryDate" class="control-label"></label>
+                <label class="control-label">Ngày Giao Hàng</label>
                 <input asp-for="Order.DeliveryDate" class="form-control" />
                 <span asp-validation-for="Order.DeliveryDate" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Order.AccountId" class="control-label"></label>
-                <select asp-for="Order.AccountId" class="form-control" asp-items="ViewBag.AccountId"></select>
+                <label class="control-label">Khách Hàng</label>
+                <select asp-for="Order.AccountId" class="form-control" asp-items="ViewBag.AccountId" disabled></select>
                 <span asp-validation-for="Order.AccountId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <br />
+            <div class="form-group justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+                <a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+                <input type="submit" value="Lưu" class="btn btn-outline-success" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

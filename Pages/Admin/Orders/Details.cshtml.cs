@@ -18,7 +18,8 @@ namespace BookStore.Pages.Admin.Orders
             _context = context;
         }
 
-      public Order Order { get; set; } = default!; 
+        public OrderDetail OrderDetail { get; set; }
+        //public Order Order { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,14 +28,18 @@ namespace BookStore.Pages.Admin.Orders
                 return NotFound();
             }
 
-            var order = await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
+            var orderDetail = await _context.OrderDetails
+                .Include(m => m.Order)
+                .Include(m => m.Book)
+                .Include(m => m.Order.Account)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (orderDetail == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
-                Order = order;
+                OrderDetail = orderDetail;
             }
             return Page();
         }
