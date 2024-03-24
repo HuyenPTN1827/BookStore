@@ -9,38 +9,39 @@ using BookStore.Models;
 
 namespace BookStore.Pages.Admin.Books
 {
-    public class CreateModel : PageModel
-    {
-        private readonly BookStore.Models.BookStoreContext _context;
+	public class CreateModel : PageModel
+	{
+		private readonly BookStore.Models.BookStoreContext _context;
 
-        public CreateModel(BookStore.Models.BookStoreContext context)
-        {
-            _context = context;
-        }
+		public CreateModel(BookStore.Models.BookStoreContext context)
+		{
+			_context = context;
+		}
 
-        public IActionResult OnGet()
-        {
-        ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PushlisherId");
-        ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryId");
-            return Page();
-        }
+		public IActionResult OnGet()
+		{
+			ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PublisherName");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+            ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryName");
+			return Page();
+		}
 
-        [BindProperty]
-        public Book Book { get; set; } = default!;
-        
+		[BindProperty]
+		public Book Book { get; set; } = default!;
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.Books == null || Book == null)
-            {
-                return Page();
-            }
 
-            _context.Books.Add(Book);
-            await _context.SaveChangesAsync();
+		// To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+		public async Task<IActionResult> OnPostAsync()
+		{
+			//if (!ModelState.IsValid || _context.Books == null || Book == null)
+			//{
+			//	return Page();
+			//}
 
-            return RedirectToPage("./Index");
-        }
-    }
+			_context.Books.Add(Book);
+			await _context.SaveChangesAsync();
+
+			return RedirectToPage("./Index");
+		}
+	}
 }
