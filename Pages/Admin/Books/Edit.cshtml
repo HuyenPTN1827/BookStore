@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
 <h1>Edit</h1>
@@ -21,6 +20,16 @@
                 <span asp-validation-for="Book.BookName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Book.Cover" class="control-label"></label>
+                <input asp-for="Book.Cover" class="form-control" />
+                <span asp-validation-for="Book.Cover" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Author" class="control-label"></label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Book.Price" class="control-label"></label>
                 <input asp-for="Book.Price" class="form-control" />
                 <span asp-validation-for="Book.Price" class="text-danger"></span>
@@ -29,11 +38,6 @@
                 <label asp-for="Book.Description" class="control-label"></label>
                 <input asp-for="Book.Description" class="form-control" />
                 <span asp-validation-for="Book.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Book.Cover" class="control-label"></label>
-                <input asp-for="Book.Cover" class="form-control" />
-                <span asp-validation-for="Book.Cover" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Book.Quantity" class="control-label"></label>

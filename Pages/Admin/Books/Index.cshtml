@@ -24,7 +24,7 @@
 	</form>
 </div>
 
-@if (Model.BooksAuthors.Any())
+@if (Model.Books.Any())
 {
 	<table class="table">
 		<thead>
@@ -40,29 +40,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (BooksAuthor book in Model.BooksAuthors)
+			@foreach (Book book in Model.Books)
 			{
 				<tr style="vertical-align:middle; text-align:center">
 					<td>
-						@book.Book.BookId
+						@book.BookId
 					</td>
 					<td>
-						<img src="~/Images/@book.Book.Cover" style="width:100px; height:100px; display:block; margin:auto;" />
+						<img src="~/Images/@book.Cover" style="width:100px; height:100px; display:block; margin:auto;" />
 					</td>
 					<td>
-						@book.Book.BookName
+						@book.BookName
 					</td>
 					<td>
-						@book.Author.AuthorName
+						@book.Author
 					</td>
 					<td>
-						@book.Book.Publisher.PublisherName
+						@book.Publisher.PublisherName
 					</td>
 					<td>
-						@book.Book.SubCategory.SubCategoryName
+						@book.SubCategory.SubCategoryName
 					</td>
 					<td>
-						@book.Book.Price VND
+						@book.Price VND
 					</td>
 					<td>
 						<a class="btn btn-outline-primary" asp-page="/Admin/Books/Details" asp-route-id="@book.BookId">Xem</a>

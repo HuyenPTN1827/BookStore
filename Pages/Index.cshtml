@@ -48,22 +48,22 @@
 
 @* Books *@
 <div class="container" style="display:flex; flex-wrap:wrap;">
-	@if (Model.BooksAuthors.Any())
+	@if (Model.Books.Any())
 	{
-		@foreach (BooksAuthor book in Model.BooksAuthors)
+		@foreach (Book book in Model.Books)
 		{
 			<div class="card" style="text-align:center; width:17rem; margin:25px">
 				<a asp-page="/Books/BookDetail" asp-route-id="@book.BookId">
-					<img src="~/Images/@book.Book.Cover" alt="book-cover" class="card-img-top" />
+					<img src="~/Images/@book.Cover" alt="book-cover" class="card-img-top" />
 				</a>
 				<div class="card-body">
 					<div style="font-weight:bold; font-size:15px">
 						<a asp-page="/Books/BookDetail" asp-route-id="@book.BookId" style="text-decoration:none; color:#000;">
-							@book.Book.BookName
+							@book.BookName
 						</a>
 					</div>
 					<div style="color:red; font-size:15px">
-						Giá: @book.Book.Price VND
+						Giá: @book.Price VND
 					</div>
 					@using (Html.BeginForm("AddCart", "Cart", new { id = book.BookId }))
 					{

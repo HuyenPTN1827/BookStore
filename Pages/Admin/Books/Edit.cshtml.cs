@@ -35,8 +35,8 @@ namespace BookStore.Pages.Admin.Books
                 return NotFound();
             }
             Book = book;
-           ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PublisherName");
-           ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryName");
+           ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PushlisherId");
+           ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryId");
             return Page();
         }
 

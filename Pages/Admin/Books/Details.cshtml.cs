@@ -21,23 +21,20 @@ namespace BookStore.Pages.Admin.Books
 		public List<Category> Categories { get; set; }
 		public List<SubCategory> SubCategories { get; set; }
 		public List<Book> Books { get; set; }
-		public List<Author> Authors { get; set; }
-		public BooksAuthor Books_Authors { get; set; }
+		public Book Book { get; set; }
 
 		public async Task<IActionResult> OnGetAsync(string? id)
 		{
 			Categories = context.Categories.ToList();
 			SubCategories = context.SubCategories.ToList();
 
-			if (id == null || context.BooksAuthors == null)
+			if (id == null || context.Books == null)
 			{
 				return NotFound();
 			}
 
-			var book = await context.BooksAuthors
-				.Include(x => x.Book)
-				.Include(x => x.Author)
-				.Include(x => x.Book.Publisher)
+			var book = await context.Books
+				.Include(x => x.Publisher)
 				.FirstOrDefaultAsync(x => x.BookId == Convert.ToInt32(id));
 
 			if (book == null)
@@ -46,7 +43,7 @@ namespace BookStore.Pages.Admin.Books
 			}
 			else
 			{
-				Books_Authors = book;
+				Book = book;
 			}
 			return Page();
 		}

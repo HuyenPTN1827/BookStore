@@ -13,18 +13,18 @@
 		<ol class="breadcrumb">
 			<li class="0" style="padding-top:7px">
 				<span class="text-black-50" style="text-decoration:none;">
-					@Model.Books_Authors.Book.SubCategory.Category.CategoryName
+					@Model.Book.SubCategory.Category.CategoryName
 				</span>
 				<span class="text-black-50" style="text-decoration:none;"> &ensp;>&ensp; </span>
 			</li>
 			<li class="1" style="padding-top:7px">
 				<span class="text-black-50" style="text-decoration:none;">
-					@Model.Books_Authors.Book.SubCategory.SubCategoryName
+					@Model.Book.SubCategory.SubCategoryName
 				</span>
 			</li>
 			<li class="2" style="margin-left:auto">
 				<a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
-				<a class="btn btn-outline-success" asp-page="/Admin/Books/Edit" asp-route-id="@Model.Books_Authors.BookId">Sửa</a>
+				<a class="btn btn-outline-success" asp-page="/Admin/Books/Edit" asp-route-id="@Model..BookId">Sửa</a>
 
 			</li>
 		</ol>
@@ -34,24 +34,24 @@
 @* BookDetail *@
 <div class="container bg-light justify-content-center mb-3" style="display:flex;">
 	<div class="card" style="float:left; margin-right:100px;">
-		<img src="~/Images/@Model.Books_Authors.Book.Cover"
+		<img src="~/Images/@Model.Book.Cover"
 			 style="width:420px; height:420px;" />
 	</div>
 	<div style="float:right; padding:28px;">
-		<h1> @Model.Books_Authors.Book.BookName</h1>
+		<h1> @Model.Book.BookName</h1>
 		<br />
 		<span>Chủ Đề:</span>
-		<strong style="font-weight:bold"> @Model.Books_Authors.Book.SubCategory.SubCategoryName</strong>
+		<strong style="font-weight:bold"> @Model.Book.SubCategory.SubCategoryName</strong>
 		<br /><br />
 		<span>Tác Giả:</span>
-		<strong style="font-weight:bold"> @Model.Books_Authors.Author.AuthorName</strong>
+		<strong style="font-weight:bold"> @Model.Book.Author</strong>
 		<br /><br />
 		<span>Nhà Xuất Bản:</span>
-		<strong style="font-weight:bold"> @Model.Books_Authors.Book.Publisher.PublisherName</strong>
+		<strong style="font-weight:bold"> @Model.Book.Publisher.PublisherName</strong>
 		<br /><br />
-		<strong style="color:red;font-weight:bold; font-size:30px"> @Model.Books_Authors.Book.Price VND</strong>
+		<strong style="color:red;font-weight:bold; font-size:30px"> @Model.Book.Price VND</strong>
 		<br /><br />
-		@using (Html.BeginForm("AddCart", "Cart", new { id = @Model.Books_Authors.BookId }))
+		@using (Html.BeginForm("AddCart", "Cart", new { id = @Model.Book.BookId }))
 		{
 			<button type="submit" class="btn btn-outline-danger" style="width:100%;height:50px;margin-top:1%">
 				Mua Hàng
@@ -62,9 +62,6 @@
 
 <div class="container bg-light" style="padding:25px 40px 15px 40px ;">
 	<strong>Giới thiệu</strong><br /><br />
-	<p>@Model.Books_Authors.Book.Description</p>
-	<br /><br /><br />
-	<strong>Thông tin Tác giả</strong><br /><br />
-	<p>@Model.Books_Authors.Author.Biography</p>
+	<p>@Model.Book.Description</p>
 </div>
 

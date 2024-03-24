@@ -17,8 +17,6 @@ namespace BookStore.Pages
 		public List<Category> Categories { get; set; }
 		public List<SubCategory> SubCategories { get; set; }
 		public List<Book> Books { get; set; }
-		public List<Author> Authors { get; set; }
-		public List<BooksAuthor> BooksAuthors { get; set; }
 		public string Keywords { get; set; }
 		public string SubCategoryId { get; set; }
 
@@ -32,20 +30,16 @@ namespace BookStore.Pages
 
 			if (string.IsNullOrEmpty(keyword) && string.IsNullOrEmpty(subCategoryId))
 			{
-				BooksAuthors = context.BooksAuthors
-					.Include(x => x.Book)
-					.Where(x => x.Position.Equals("Writer"))
+				Books = context.Books
 					.OrderByDescending(x => x.BookId)
 					.ToList();
 			}
 			else
 			{
-				BooksAuthors = context.BooksAuthors
-					.Include(x => x.Book)
-					.Include(x => x.Author)
-					.Where(x => (x.Position.Equals("Writer") && x.Book.BookName.Contains(keyword))
-					|| (x.Position.Equals("Writer") && x.Author.AuthorName.Contains(keyword))
-					|| (x.Position.Equals("Writer") && x.Book.SubCategoryId == Convert.ToInt32(subCategoryId)))
+				Books = context.Books
+					.Where(x => x.BookName.Contains(keyword) 
+					|| x.Author.Contains(keyword) 
+					|| x.SubCategoryId == Convert.ToInt32(subCategoryId))
                     .OrderByDescending(x => x.BookId)
                     .ToList();
 			}

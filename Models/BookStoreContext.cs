@@ -17,9 +17,7 @@ namespace BookStore.Models
         }
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
-        public virtual DbSet<Author> Authors { get; set; } = null!;
         public virtual DbSet<Book> Books { get; set; } = null!;
-        public virtual DbSet<BooksAuthor> BooksAuthors { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -37,7 +35,6 @@ namespace BookStore.Models
 							  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 				IConfigurationRoot configuration = builder.Build();
 				optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyCnn"));
-
 			}
 		}
 
@@ -71,30 +68,21 @@ namespace BookStore.Models
                     .HasConstraintName("FK_Accounts_Roles");
             });
 
-            modelBuilder.Entity<Author>(entity =>
-            {
-                entity.Property(e => e.AuthorId).HasColumnName("AuthorID");
-
-                entity.Property(e => e.Address).HasMaxLength(100);
-
-                entity.Property(e => e.AuthorName).HasMaxLength(100);
-
-                entity.Property(e => e.Biography).HasMaxLength(1000);
-
-                entity.Property(e => e.Phone).HasMaxLength(11);
-            });
-
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.Property(e => e.BookId).HasColumnName("BookID");
 
+                entity.Property(e => e.Author).HasMaxLength(255);
+
                 entity.Property(e => e.BookName).HasMaxLength(255);
 
-                entity.Property(e => e.Cover).HasMaxLength(255);
+                entity.Property(e => e.Cover)
+                    .HasMaxLength(255)
+                    .HasDefaultValueSql("(N'cover-default.jpg')");
 
                 entity.Property(e => e.Description).HasMaxLength(1000);
 
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 3)");
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.PublisherId).HasColumnName("PublisherID");
 
@@ -107,37 +95,12 @@ namespace BookStore.Models
                 entity.HasOne(d => d.Publisher)
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.PublisherId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Books_Publishers");
 
                 entity.HasOne(d => d.SubCategory)
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.SubCategoryId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Books_SubCategories");
-            });
-
-            modelBuilder.Entity<BooksAuthor>(entity =>
-            {
-                entity.HasKey(e => new { e.BookId, e.AuthorId });
-
-                entity.ToTable("Books_Authors");
-
-                entity.Property(e => e.BookId).HasColumnName("BookID");
-
-                entity.Property(e => e.AuthorId).HasColumnName("AuthorID");
-
-                entity.Property(e => e.Position).HasMaxLength(50);
-
-                entity.HasOne(d => d.Author)
-                    .WithMany(p => p.BooksAuthors)
-                    .HasForeignKey(d => d.AuthorId)
-                    .HasConstraintName("FK_Books_Authors_Authors");
-
-                entity.HasOne(d => d.Book)
-                    .WithMany(p => p.BooksAuthors)
-                    .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK_Books_Authors_Books");
             });
 
             modelBuilder.Entity<Category>(entity =>
