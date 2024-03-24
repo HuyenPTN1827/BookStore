@@ -62,7 +62,7 @@
 						@book.SubCategory.SubCategoryName
 					</td>
 					<td>
-						@book.Price VND
+						@string.Format("{0:0,0}",@book.Price) VND
 					</td>
 					<td>
 						<a class="btn btn-outline-primary" asp-page="/Admin/Books/Details" asp-route-id="@book.BookId">Xem</a>

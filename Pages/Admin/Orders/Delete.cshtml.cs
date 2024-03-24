@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Models;
 
-namespace BookStore.Pages.Admin.Books
+namespace BookStore.Pages.Admin.Orders
 {
     public class DeleteModel : PageModel
     {
@@ -19,45 +19,40 @@ namespace BookStore.Pages.Admin.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
-        public List<Publisher> Publishers { get; set; }
-        public List<SubCategory> SubCategories { get; set; }
+      public Order Order { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-
-            if (id == null || _context.Books == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Books.Include(x => x.Publisher)
-                .Include(x => x.SubCategory)
-                .FirstOrDefaultAsync(m => m.BookId == id);
+            var order = await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
 
-            if (book == null)
+            if (order == null)
             {
                 return NotFound();
             }
-            else
+            else 
             {
-                Book = book;
+                Order = order;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Books == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
-            var book = await _context.Books.FindAsync(id);
+            var order = await _context.Orders.FindAsync(id);
 
-            if (book != null)
+            if (order != null)
             {
-                Book = book;
-                _context.Books.Remove(Book);
+                Order = order;
+                _context.Orders.Remove(Order);
                 await _context.SaveChangesAsync();
             }
 

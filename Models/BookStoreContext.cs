@@ -80,9 +80,9 @@ namespace BookStore.Models
                     .HasMaxLength(255)
                     .HasDefaultValueSql("(N'cover-default.jpg')");
 
-                entity.Property(e => e.Description).HasMaxLength(1000);
+                entity.Property(e => e.Description).HasColumnType("nvarchar(MAX)");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+				entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.PublisherId).HasColumnName("PublisherID");
 

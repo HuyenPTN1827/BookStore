@@ -2,79 +2,94 @@
 @model BookStore.Pages.Admin.Books.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Pages/Shared/_Admin.cshtml";
+	ViewData["Title"] = "Create";
+	Layout = "~/Pages/Shared/_Admin.cshtml";
 }
+@using BookStore.Models
 
 <h1 style="text-align:center">Thêm Sách Mới</h1>
 <hr />
 
-<div class="row" style="display:flex; align-items:center;">
-    <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label">Tên Sách</label>
-                <input asp-for="Book.BookName" class="form-control" placeholder="Nhập tên sách"/>
-                <span asp-validation-for="Book.BookName" class="text-danger"></span>
-            </div>
-            <br/>
-            <div class="form-group">
-                <label class="control-label">Bìa Sách</label>
-                <input asp-for="Book.Cover" type="file" class="form-control" />
-                <span asp-validation-for="Book.Cover" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label class="control-label">Tác Giả</label>
-                <input asp-for="Book.Author" class="form-control" placeholder="Nhập tên tác giả" />
-                <span asp-validation-for="Book.Author" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label class="control-label">Giá Sách</label>
-                <input asp-for="Book.Price" class="form-control" placeholder="Nhập giá cả của sách" />
-                <span asp-validation-for="Book.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Mô tả</label>
-                <textarea asp-for="Book.Description" length="20000" class="form-control" placeholder="Nhập mô tả" ></textarea>
-                <span asp-validation-for="Book.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Số Lượng (1 - 100)</label>
-                <input asp-for="Book.Quantity" class="form-control" placeholder="Nhập số lượng sách" />
-                <span asp-validation-for="Book.Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Nhà Xuất Bản</label>
-                <select asp-for="Book.PublisherId" class ="form-control" asp-items="ViewBag.PublisherId">
-                    <option disabled selected hidden value="0">- Chọn Nhà xuất bản -</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Danh Mục</label>
-                <select class="form-control" asp-items="ViewBag.CategoryId">
-                    <option disabled selected hidden value="0">- Chọn Danh mục con -</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Danh Mục Con</label>
-                <select asp-for="Book.SubCategoryId" class ="form-control" asp-items="ViewBag.SubCategoryId">
-                    <option disabled selected hidden value="0">- Chọn Danh mục con -</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<form method="post" enctype="multipart/form-data">
+	<div class="row justify-content-center" style="display:flex; align-items:center;">
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+		<div class="col-md-4" style="float:left; margin-right: 100px">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label class="control-label">Tên Sách</label>
+				<input asp-for="Book.BookName" class="form-control" placeholder="Nhập tên sách" required />
+				<span asp-validation-for="Book.BookName" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Bìa Sách</label>
+				<input asp-for="Book.Cover" type="file" class="form-control" />
+				<span asp-validation-for="Book.Cover" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Tác Giả</label>
+				<input asp-for="Book.Author" class="form-control" placeholder="Nhập tên tác giả" required />
+				<span asp-validation-for="Book.Author" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Giá Sách</label>
+				<input asp-for="Book.Price" class="form-control" placeholder="Nhập giá cả của sách" required />
+				<span asp-validation-for="Book.Price" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Số Lượng (1 - 100)</label>
+				<input asp-for="Book.Quantity" class="form-control" placeholder="Nhập số lượng sách"
+					   min="1" max="100" required />
+				<span asp-validation-for="Book.Quantity" class="text-danger"></span>
+			</div>
+			<br />
+		</div>
+		<div class="col-md-4" style="float:right">
+			<div class="form-group">
+				<label class="control-label">Nhà Xuất Bản</label>
+				<select asp-for="Book.PublisherId" class="form-control" asp-items="ViewBag.PublisherId" required>
+					<option disabled selected hidden value="0">- Chọn Nhà xuất bản -</option>
+				</select>
+			</div>
+			<br />
+			@* <div class="form-group">
+			<label class="control-label">Danh Mục</label>
+			<select class="form-control" asp-items="ViewBag.CategoryId" required>
+			<option disabled selected hidden value="0">- Chọn Danh mục con -</option>
+			</select>
+			</div>
+			<br /> *@
+			<div class="form-group">
+				<label class="control-label">Danh Mục</label>
+				<select asp-for="Book.SubCategoryId" class="form-control" required>
+					<option disabled selected hidden value="0">- Chọn Danh mục -</option>
+					@foreach (SubCategory subCategory in Model.SubCategories)
+					{
+						<option value="@subCategory.SubCategoryId">(@subCategory.Category.CategoryName) @subCategory.SubCategoryName</option>
+					}
+				</select>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Mô tả</label>
+				<textarea asp-for="Book.Description" length="20000" class="form-control" placeholder="Nhập mô tả"
+						  style="height:208px"></textarea>
+				<span asp-validation-for="Book.Description" class="text-danger"></span>
+			</div>
+			<br />
+		</div>
+		<div class="form-group justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+			<a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+			<input type="submit" value="Thêm Sách" class="btn btn-outline-success" />
+		</div>
+	</div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

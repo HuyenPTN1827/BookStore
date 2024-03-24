@@ -17,7 +17,7 @@ namespace BookStore.Models
         public decimal Price { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public int PublisherId { get; set; }
         public int SubCategoryId { get; set; }
 

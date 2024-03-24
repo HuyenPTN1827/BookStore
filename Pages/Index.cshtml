@@ -63,14 +63,14 @@
 						</a>
 					</div>
 					<div style="color:red; font-size:15px">
-						Giá: @book.Price VND
+						Giá: @string.Format("{0:0,0}",@book.Price) VND
 					</div>
-					@using (Html.BeginForm("AddCart", "Cart", new { id = book.BookId }))
-					{
+					@* @using (Html.BeginForm("AddCart", "Cart", new { id = book.BookId }))
+					{ *@
 						<button type="submit" class="btn btn-outline-danger" style="margin-top:1%">
 							Mua Hàng
 						</button>
-					}
+					@* } *@
 				</div>
 			</div>
 		}

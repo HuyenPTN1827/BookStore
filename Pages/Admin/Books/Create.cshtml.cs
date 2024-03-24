@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookStore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Pages.Admin.Books
 {
@@ -18,11 +19,12 @@ namespace BookStore.Pages.Admin.Books
 			_context = context;
 		}
 
+		public List<SubCategory> SubCategories { get; set; }
+
 		public IActionResult OnGet()
 		{
 			ViewData["PublisherId"] = new SelectList(_context.Publishers, "PushlisherId", "PublisherName");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "SubCategoryName");
+			SubCategories = _context.SubCategories.Include(x => x.Category).ToList();
 			return Page();
 		}
 
