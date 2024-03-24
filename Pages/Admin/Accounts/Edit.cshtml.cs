@@ -35,7 +35,7 @@ namespace BookStore.Pages.Admin.Accounts
                 return NotFound();
             }
             Account = account;
-           ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId");
+           ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             return Page();
         }
 
@@ -43,10 +43,10 @@ namespace BookStore.Pages.Admin.Accounts
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Attach(Account).State = EntityState.Modified;
 

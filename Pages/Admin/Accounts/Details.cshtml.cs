@@ -27,7 +27,9 @@ namespace BookStore.Pages.Admin.Accounts
                 return NotFound();
             }
 
-            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            var account = await _context.Accounts
+                .Include(m => m.Role)
+                .FirstOrDefaultAsync(m => m.AccountId == id);
             if (account == null)
             {
                 return NotFound();

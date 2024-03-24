@@ -2,36 +2,63 @@
 @model BookStore.Pages.Admin.Categories.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Pages/Shared/_Admin.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Index</h1>
+<h1 style="text-align:center">Quản Lý Danh Mục</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].CategoryName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Category) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CategoryId">Delete</a>
-            </td>
-        </tr>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2%">
+	<div>
+		<a class="btn btn-outline-success" asp-page="Create">Thêm Danh Mục Mới</a>
+	</div>
+	<form asp-action="/Admin/Categories" method="get">
+		<div class="input-group justify-content-end" style="margin-left:auto">
+			<div class="form-outline " data-mdb-input-init>
+				<input type="search" class="form-control" placeholder="Nhập Vào Từ Tìm Kiếm" name="keyword" value="@Model.Keywords" />
+			</div>
+			<button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>Tìm Kiếm</button>
+		</div>
+	</form>
+</div>
+
+@if (Model.Category.Any())
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Danh Mục
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Category)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.CategoryId)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CategoryName)
+					</td>
+					<td>
+						<a class="btn btn-outline-primary" asp-page="./Details" asp-route-id="@item.CategoryId">Xem</a>&nbsp;
+						<a class="btn btn-outline-success" asp-page="./Edit" asp-route-id="@item.CategoryId">Sửa</a>&nbsp;
+						<a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@item.CategoryId">Xoá</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
-    </tbody>
-</table>
+else
+{
+	<div class="text-black-50" style="font-weight:bold; font-size:20px; text-align:center">
+		<p>Không tìm thấy kết quả!</p>
+	</div>
+}

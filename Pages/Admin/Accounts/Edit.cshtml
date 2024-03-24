@@ -2,75 +2,83 @@
 @model BookStore.Pages.Admin.Accounts.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Pages/Shared/_Admin.cshtml";
+	ViewData["Title"] = "Edit";
+	Layout = "~/Pages/Shared/_Admin.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Account</h4>
+<h1 style="text-align:center">Thông Tin Tài Khoản</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Account.AccountId" />
-            <div class="form-group">
-                <label asp-for="Account.Username" class="control-label"></label>
-                <input asp-for="Account.Username" class="form-control" />
-                <span asp-validation-for="Account.Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
-                <input asp-for="Account.Password" class="form-control" />
-                <span asp-validation-for="Account.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Fullname" class="control-label"></label>
-                <input asp-for="Account.Fullname" class="form-control" />
-                <span asp-validation-for="Account.Fullname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Email" class="control-label"></label>
-                <input asp-for="Account.Email" class="form-control" />
-                <span asp-validation-for="Account.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Address" class="control-label"></label>
-                <input asp-for="Account.Address" class="form-control" />
-                <span asp-validation-for="Account.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Phone" class="control-label"></label>
-                <input asp-for="Account.Phone" class="form-control" />
-                <span asp-validation-for="Account.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Gender" class="control-label"></label>
-                <input asp-for="Account.Gender" class="form-control" />
-                <span asp-validation-for="Account.Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.DoB" class="control-label"></label>
-                <input asp-for="Account.DoB" class="form-control" />
-                <span asp-validation-for="Account.DoB" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.RoleId" class="control-label"></label>
-                <select asp-for="Account.RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
-                <span asp-validation-for="Account.RoleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
+<form method="post">
+	<div class="row justify-content-center" style="display:flex; align-items:center;">
+		<div class="col-md-4" style="float:left; margin-right: 110px">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Account.AccountId" />
+			<div class="form-group">
+				<label asp-for="Account.Username" class="control-label"></label>
+				<input asp-for="Account.Username" class="form-control" />
+				<span asp-validation-for="Account.Username" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label asp-for="Account.Password" class="control-label"></label>
+				<input asp-for="Account.Password" class="form-control" />
+				<span asp-validation-for="Account.Password" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Họ Tên</label>
+				<input asp-for="Account.Fullname" class="form-control" />
+				<span asp-validation-for="Account.Fullname" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label asp-for="Account.Email" class="control-label"></label>
+				<input asp-for="Account.Email" class="form-control" />
+				<span asp-validation-for="Account.Email" class="text-danger"></span>
+			</div>
+			<br />
+		</div>
+		<div class="col-md-4" style="float:right">
+			<div class="form-group">
+				<label class="control-label">SĐT</label>
+				<input asp-for="Account.Phone" class="form-control" />
+				<span asp-validation-for="Account.Phone" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Giới Tính</label>
+				<input asp-for="Account.Gender" class="form-control" />
+				<span asp-validation-for="Account.Gender" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Ngày Sinh</label>
+				<input asp-for="Account.DoB" class="form-control" />
+				<span asp-validation-for="Account.DoB" class="text-danger"></span>
+			</div>
+			<br />
+			<div class="form-group">
+				<label class="control-label">Vai Trò</label>
+				<select asp-for="Account.RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+				<span asp-validation-for="Account.RoleId" class="text-danger"></span>
+			</div>
+			<br />
+		</div>
+		<div class="col-md-9 form-group mb-4">
+			<label class="control-label">Địa Chỉ</label>
+			<input asp-for="Account.Address" class="form-control" />
+			<span asp-validation-for="Account.Address" class="text-danger"></span>
+		</div>
+		<div class="form-group justify-content-center" style="display:flex; align-items:center; margin-bottom:10px">
+			<a class="btn btn-outline-secondary" asp-page="./Index">< Quay lại</a>&nbsp;
+			<input type="submit" value="Lưu" class="btn btn-outline-success" />
+		</div>
+	</div>
+	</div>
+</form>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

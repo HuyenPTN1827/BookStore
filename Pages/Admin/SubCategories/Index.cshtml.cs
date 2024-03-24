@@ -19,14 +19,28 @@ namespace BookStore.Pages.Admin.SubCategories
         }
 
         public IList<SubCategory> SubCategory { get;set; } = default!;
+		public string Keywords { get; set; }
 
-        public async Task OnGetAsync()
+		public async Task OnGetAsync(string keyword)
         {
-            if (_context.SubCategories != null)
-            {
-                SubCategory = await _context.SubCategories
-                .Include(s => s.Category).ToListAsync();
+			Keywords = keyword;
+
+			if (string.IsNullOrEmpty(keyword))
+			{
+				SubCategory = await _context.SubCategories
+                .Include(s => s.Category)
+                .OrderByDescending(s => s.SubCategoryId)
+                .ToListAsync();
             }
+            else
+            {
+				SubCategory = await _context.SubCategories
+				.Include(s => s.Category)
+                .Where(s => s.SubCategoryName.Contains(keyword)
+                || s.Category.CategoryName.Contains(keyword))
+				.OrderByDescending(s => s.SubCategoryId)
+				.ToListAsync();
+			}
         }
     }
 }

@@ -31,10 +31,10 @@ namespace BookStore.Pages.Admin.SubCategories
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.SubCategories == null || SubCategory == null)
-            {
-                return Page();
-            }
+          //if (!ModelState.IsValid || _context.SubCategories == null || SubCategory == null)
+          //  {
+          //      return Page();
+          //  }
 
             _context.SubCategories.Add(SubCategory);
             await _context.SaveChangesAsync();

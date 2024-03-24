@@ -19,13 +19,25 @@ namespace BookStore.Pages.Admin.Categories
         }
 
         public IList<Category> Category { get;set; } = default!;
+		public string Keywords { get; set; }
 
-        public async Task OnGetAsync()
+		public async Task OnGetAsync(string keyword)
         {
-            if (_context.Categories != null)
-            {
-                Category = await _context.Categories.ToListAsync();
+			Keywords = keyword;
+
+			if (string.IsNullOrEmpty(keyword))
+			{
+				Category = await _context.Categories
+					.OrderByDescending(x => x.CategoryId)
+					.ToListAsync();
             }
+            else
+            {
+				Category = await _context.Categories
+                    .Where(x => x.CategoryName.Contains(keyword))
+                    .OrderByDescending(x => x.CategoryId)
+                    .ToListAsync();
+			}
         }
     }
 }

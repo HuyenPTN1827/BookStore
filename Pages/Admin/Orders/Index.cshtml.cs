@@ -19,14 +19,26 @@ namespace BookStore.Pages.Admin.Orders
         }
 
         public IList<Order> Order { get;set; } = default!;
-
-        public async Task OnGetAsync()
+		public string Keywords { get; set; }
+		public async Task OnGetAsync(string keyword)
         {
-            if (_context.Orders != null)
-            {
-                Order = await _context.Orders
-                .Include(o => o.Account).ToListAsync();
+			Keywords = keyword;
+			if (string.IsNullOrEmpty(keyword))
+			{
+				Order = await _context.Orders
+                .Include(o => o.Account)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
             }
+            else
+            {
+				Order = await _context.Orders
+				.Include(o => o.Account)
+                .Where(o => o.Status.Contains(keyword)
+                || o.Account.Fullname.Contains(keyword))
+				.OrderByDescending(o => o.OrderDate)
+				.ToListAsync();
+			}
         }
     }
 }
