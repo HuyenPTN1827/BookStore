@@ -12,20 +12,20 @@
 
 <div class="row justify-content-center">
 
-	<form asp-action="/Admin/Books/Create" method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data">
 		<div style="display:flex; justify-content:center; align-items:center;">
 			<div class="col-md-4" style="float:left; margin-right:100px;">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 				<div class="form-group">
 					<label class="control-label">Tên Sách</label>
-					<input type="text" class="form-control" placeholder="Nhập Tên Sách" name="bookName" required></input>
+					<input asp-for="Book.BookName" type="text" class="form-control" placeholder="Nhập Tên Sách" name="bookName" required></input>
 				</div>
 				<br />
 
 				<div class="form-group">
 					<label class="control-label">Ảnh Bìa</label>
-					<input type="file" class="form-control" name="cover"></input>
+					<input asp-for="Book.Cover" type="file" class="form-control"></input>
 					<span asp-validation-formaction="Book.Cover"></span>
 					@* <button class="btn btn-primary" asp-page="UploadMulti">Chọn Ảnh</button> *@
 				</div>
@@ -42,19 +42,19 @@
 
 				<div class="form-group">
 					<label class="control-label">Tác Giả</label>
-					<input type="text" class="form-control" placeholder="Nhập Tên Tác Giả" name="author" required></input>
+					<input asp-for="Author.AuthorName" type="text" class="form-control" placeholder="Nhập Tên Tác Giả" name="authorName" required></input>
 				</div>
 				<br />
 
 				<div class="form-group">
 					<label class="control-label">Giá Bán</label>
-					<input type="text" class="form-control" placeholder="Nhập Giá Sách" name="price" required></input>
+					<input asp-for="Book.Price" type="text" class="form-control" placeholder="Nhập Giá Sách" required></input>
 				</div>
 				<br />
 
 				<div class="form-group">
 					<label class="control-label">Số Lượng (1 - 100):</label>
-					<input type="number" class="form-control" placeholder="Nhập Số Lượng"
+					<input asp-for="Book.Quantity" type="number" class="form-control" placeholder="Nhập Số Lượng"
 						   name="quantity" min="1" max="100" required>
 				</div>
 			</div>
@@ -62,8 +62,8 @@
 			<div class="col-md-4" style="float:right;">
 				<div class="form-group">
 					<label class="control-label">Nhà Xuất Bản</label>
-					<select class="form-control" name="publisher" required>
-						<option disabled selected hidden value="">- Chọn Nhà Xuất Bản -</option>
+					<select asp-for="Book.PublisherId" class="form-control" required>
+						<option disabled selected hidden value="0">- Chọn Nhà Xuất Bản -</option>
 						@foreach (Publisher publisher in Model.Publishers)
 						{
 							<option value="@publisher.PushlisherId">@publisher.PublisherName</option>
@@ -75,7 +75,7 @@
 				<div class="form-group">
 					<label class="control-label">Danh Mục</label>
 					<select class="form-control" name="category" required>
-						<option disabled selected hidden value="">- Chọn Danh Mục -</option>
+						<option disabled selected hidden value="0">- Chọn Danh Mục -</option>
 						@foreach (Category category in Model.Categories)
 						{
 							<option value="@category.CategoryId">@category.CategoryName</option>
@@ -86,8 +86,8 @@
 
 				<div class="form-group">
 					<label class="control-label">Danh Mục Con</label>
-					<select class="form-control" name="subCategory" required>
-						<option disabled selected hidden value="">- Chọn Danh Mục Con -</option>
+					<select asp-for="Book.SubCategoryId" class="form-control" required>
+						<option disabled selected hidden value="0">- Chọn Danh Mục Con -</option>
 						@foreach (SubCategory subCategory in Model.SubCategories)
 						{
 							<option value="@subCategory.SubCategoryId">@subCategory.SubCategoryName</option>
@@ -98,7 +98,7 @@
 
 				<div class="form-group">
 					<label class="control-label">Mô Tả</label>
-					<textarea type="string" length="20000" class="form-control"
+					<textarea asp-for="Book.Description" type="string" length="20000" class="form-control"
 							  placeholder="Nhập Mô Tả" name="description" style="height:123px;"></textarea>
 				</div>
 			</div>
